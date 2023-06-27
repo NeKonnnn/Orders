@@ -1,4 +1,4 @@
 # HSE HW
 
-Сами задания находились тут: https://github.com/ryabchi/hse-python-2023. 
+Сами задания находились тут: https://github.com/ryabchi/hse-python-2023. (папка task)
 Нужно было решить 5 практических работ и провести их проверку!
