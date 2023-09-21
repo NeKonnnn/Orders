@@ -1,0 +1,224 @@
+PROGRAM sum_series
+IMPLICIT NONE
+REAL :: x, epsilon, sum1, sum2
+INTEGER :: n
+
+! Ввод данных
+PRINT *, "Введите значение X:"
+READ *, x
+PRINT *, "Введите точность вычисления:"
+READ *, epsilon
+
+! Вычисление суммы ряда с заданной точностью
+CALL compute_sum_epsilon(x, epsilon, sum1, n)
+
+! Вычисление n-ого приближения
+CALL compute_sum_n(x, n, sum2)
+
+! Вывод результатов
+PRINT *, "Х =", x
+PRINT *, "Сумма ряда =", sum2
+
+CONTAINS
+
+SUBROUTINE compute_sum_epsilon(x, epsilon, sum, n)
+REAL, INTENT(IN) :: x, epsilon
+REAL, INTENT(OUT) :: sum
+INTEGER, INTENT(OUT) :: n
+REAL :: term, prev_term
+INTEGER :: sign, i
+
+term = x
+prev_term = 0.0
+sum = 0.0
+sign = 1
+i = 1
+
+DO WHILE (ABS(term - prev_term) > epsilon)
+    PRINT *, i, "=", sign * term, sum
+    sum = sum + sign * term
+
+    ! Обновление значений для следующего члена ряда
+    prev_term = term
+    term = term * (i + 1) * x / (i + 2)
+    sign = -sign
+    i = i + 1
+ENDDO
+
+n = i
+PRINT *, "Сумма =", sum, "Количество членов ряда =", n
+END SUBROUTINE compute_sum_epsilon
+
+SUBROUTINE compute_sum_n(x, n, sum)
+REAL, INTENT(IN) :: x
+INTEGER, INTENT(IN) :: n
+REAL, INTENT(OUT) :: sum
+REAL :: term
+INTEGER :: sign, i
+
+term = x
+sum = 0.0
+sign = 1
+
+DO i = 1, n
+    sum = sum + sign * term
+
+    ! Обновление значений для следующего члена ряда
+    term = term * (i + 1) * x / (i + 2)
+    sign = -sign
+ENDDO
+END SUBROUTINE compute_sum_n
+
+END PROGRAM sum_series
+
+
+Задача № 2
+
+PROGRAM main_program
+IMPLICIT NONE
+REAL, ALLOCATABLE :: array(:)
+REAL :: avg_value
+REAL, DIMENSION(1000) :: temp_array  ! предполагаемый максимальный размер
+INTEGER :: n, k, i
+
+! Чтение массива из файла
+CALL read_array_from_file(temp_array, n)
+
+! Выделяем память для array и копируем данные из temp_array
+ALLOCATE(array(n))
+array = temp_array(1:n)
+
+! Вывод исходного массива
+PRINT *, "Введите количество элементов для вывода в одной строке:"
+READ *, k
+CALL print_array(array, k)
+
+! Замена элементов на нечетных позициях
+avg_value = SUM(array) / n
+CALL replace_odd_elements(array, avg_value)
+
+! Вывод результирующего массива
+PRINT *, "Результирующий массив:"
+PRINT *, array
+
+CONTAINS
+
+SUBROUTINE read_array_from_file(arr, n)
+REAL, INTENT(OUT) :: arr(1000)
+INTEGER, INTENT(OUT) :: n
+INTEGER :: unit, ierr, i
+
+unit = 10
+OPEN(unit, FILE="input.txt", STATUS="OLD", ACTION="READ")
+
+! Подсчет количества элементов в файле
+n = 0
+DO i = 1, 1000
+   READ(unit, *, IOSTAT=ierr) arr(i)
+   IF (ierr /= 0) EXIT
+   n = n + 1
+ENDDO
+REWIND(unit)
+
+CLOSE(unit)
+END SUBROUTINE read_array_from_file
+
+SUBROUTINE print_array(arr, k)
+REAL, INTENT(IN) :: arr(:)
+INTEGER, INTENT(IN) :: k
+INTEGER :: i
+
+DO i = 1, SIZE(arr), k
+   PRINT *, arr(i:i+MIN(k-1, SIZE(arr)-i))
+ENDDO
+END SUBROUTINE print_array
+
+SUBROUTINE replace_odd_elements(arr, value)
+REAL, INTENT(INOUT) :: arr(:)
+REAL, INTENT(IN) :: value
+INTEGER :: i
+
+DO i = 1, SIZE(arr), 2
+   arr(i) = value
+ENDDO
+END SUBROUTINE replace_odd_elements
+
+END PROGRAM main_program
+
+
+
+Задача № 3
+
+PROGRAM matrix_program
+    IMPLICIT NONE
+    INTEGER, ALLOCATABLE :: matrix(:,:)
+    INTEGER :: n, m, i, j, num
+
+    ! Ввод размерности матрицы
+    PRINT *, "Введите количество строк (N) и столбцов (M) матрицы:"
+    READ *, n, m
+
+    ! Выделение памяти и ввод матрицы
+    ALLOCATE(matrix(n, m))
+    PRINT *, "Введите элементы матрицы построчно:"
+    DO i = 1, n
+        DO j = 1, m
+            READ *, matrix(i, j)
+        ENDDO
+    ENDDO
+
+    ! Вывод исходной матрицы
+    PRINT *, "Исходная матрица:"
+    DO i = 1, n
+        PRINT *, matrix(i, :)
+    ENDDO
+
+    ! Ввод числа
+    PRINT *, "Введите заданное целое число:"
+    READ *, num
+
+    ! Замена элементов, соответствующих критерию
+    DO i = 1, n
+        CALL replace_elements(matrix(i, :), num)
+    ENDDO
+
+    ! Вывод результата
+    PRINT *, "Результирующая матрица:"
+    DO i = 1, n
+        PRINT *, matrix(i, :)
+    ENDDO
+
+CONTAINS
+
+    SUBROUTINE replace_elements(row, num)
+        INTEGER, INTENT(INOUT) :: row(:)
+        INTEGER, INTENT(IN) :: num
+        INTEGER :: idx_min, i
+
+        idx_min = find_min_index(row, num)
+        IF (idx_min /= -1) THEN
+            DO i = 1, SIZE(row)
+                IF (MOD(row(i), num) == 0) THEN
+                    row(i) = 0
+                ENDIF
+            ENDDO
+        ENDIF
+    END SUBROUTINE replace_elements
+
+    INTEGER FUNCTION find_min_index(arr, num)
+        INTEGER, INTENT(IN) :: arr(:)
+        INTEGER, INTENT(IN) :: num
+        INTEGER :: i, min_val
+
+        find_min_index = -1
+        min_val = HUGE(min_val)
+
+        DO i = 1, SIZE(arr)
+            IF (MOD(arr(i), num) == 0 .AND. arr(i) < min_val) THEN
+                min_val = arr(i)
+                find_min_index = i
+            ENDIF
+        ENDDO
+    END FUNCTION find_min_index
+
+END PROGRAM matrix_program
