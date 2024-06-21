@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: flex;
+            top: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 5px;
+            letter-spacing: 2px;
+        }
+
+        .info {
+            flex: 1;
+        }
+
+        .info-data, .subtitle {
+            margin: 0;
+            padding: 0;
+        }
+
+        .info-data {
+            font-size: 14px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            /*position: absolute;*/
+            /*top: 240px; !* Adjust as per your layout *!*/
+            left: 0;
+            right: 0;
+            text-align: center;
+            flex: fit-content;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px;
+        }
+
+        .image {
+            width: 120px;
+            height: 120px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            page-break-inside: auto; /* Allow page breaks inside tables */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: grey;
+            color: white;
+        }
+
+        td {
+            background-color: beige;
+        }
+
+        tr {
+            page-break-inside: avoid !important; /* Avoid page breaks inside table rows */
+            page-break-after: auto; /* Allow page breaks after rows */
+        }
+
+        /*.content {*/
+        /*    margin-top: 180px; !* Adjust as needed to create space below header and subtitle *!*/
+        /*}*/
+
+        .footer {
+            letter-spacing: 2px;
+        }
+
+        .footer img {
+            width: 256px;
+            height: 256px;
+
+            margin: 0; /* Remove any default margins */
+            padding: 0; /* Remove any default padding */
+            bottom: 0; /* Align to the bottom of the footer */
+            left: 0; /* Align to the left of the footer */
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="info">
+        <h1>{{ title }}</h1>
+        <p class="info-data">{{ creator }}</p>
+        <p class="info-data">{{ date_of_creation }}</p>
+    </div>
+    <div class="image-container">
+        <img alt="Image" class="image" src="{{ icon }}">
+    </div>
+</div>
+<div class="subtitle">{{ subtitle }}</div>
+<div class="content">
+    {% for row in data %}
+    <div>
+        <table>
+            <tr>
+                <th>{{ key_name }}</th>
+                <th>{{ value_name }}</th>
+            </tr>
+            {% for key, value in row.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% if not loop.last %} <!-- Check if it is the last row, after that => add newline and move to new page -->
+    <div style="display:block; clear:both; page-break-after:always;"></div>
+    {% endif %}
+    <div class="footer">
+        <br><div>{{ qr_code_hint_text }}</div><br>
+        <img alt="Footer Image" src="{{ qr_code }}">
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

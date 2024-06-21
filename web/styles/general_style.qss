@@ -1,0 +1,142 @@
+/* General QWidget styling */
+QWidget {
+    background-color: #F3F3F3; /* Light grey color for general background */
+    color: #333333; /* Dark grey color for text */
+    font-size: 14px;
+    font-family: "Segoe UI";
+}
+
+/* Menu bar styling */
+QMenuBar {
+    background-color: #4A4A4A; /* Dark grey color for menu bar */
+    border-bottom: 2px solid #333333; /* Even darker grey for border */
+}
+
+QMenuBar::item {
+    padding: 6px 20px;
+    background-color: transparent;
+    color: #FFFFFF; /* White color for menu items */
+}
+
+QMenuBar::item:selected {
+    background-color: #333333; /* Dark grey color for selected items */
+}
+
+/* Table styling */
+QTableWidget {
+    gridline-color: #333333;
+    border: 1px solid #333333;
+}
+
+QHeaderView::section {
+    background-color: #4A4A4A; /* Dark grey color for header section */
+    color: #FFFFFF; /* White color for header text */
+    padding: 6px;
+    border: 1px solid #333333;
+    border-left: none;
+}
+
+/* Button styling */
+QPushButton {
+    background-color: #4A4A4A; /* Dark grey color for buttons */
+    color: #FFFFFF; /* White text for contrast */
+    border: 1px solid #333333; /* Dark grey border for buttons */
+    padding: 6px 20px;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #333333; /* Even darker grey for hover */
+}
+
+QPushButton:pressed {
+    background-color: #1A1A1A; /* Almost black color for pressed state */
+}
+
+QPushButton:disabled {
+    color: white;
+    background-color: grey;
+    text-decoration: none;
+}
+
+/* Vertical ScrollBar styling */
+QScrollBar:vertical {
+    border: 1px solid #333333;
+    background: #F3F3F3; /* Light grey background for scrollbar */
+    width: 18px;
+    margin: 20px 0 20px 0;
+}
+
+QScrollBar::handle:vertical {
+    background: #4A4A4A; /* Dark grey color for handle */
+    min-height: 25px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: 1px solid #333333;
+    background: #333333; /* Dark grey color for scroll buttons */
+    height: 18px;
+    subcontrol-origin: margin;
+}
+
+/* Horizontal ScrollBar styling */
+QScrollBar:horizontal {
+    border: 1px solid #333333;
+    background: #F3F3F3; /* Light grey background for horizontal scrollbar */
+    height: 18px;
+    margin: 0 20px 0 20px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #4A4A4A; /* Dark grey color for handle */
+    min-width: 25px;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    border: 1px solid #333333;
+    background: #333333; /* Dark grey color for scroll buttons */
+    width: 18px;
+    subcontrol-origin: margin;
+}
+
+/* ComboBox styling */
+QComboBox {
+    border: 1px solid #333333; /* Dark grey border for combo box */
+    border-radius: 5px;
+    padding: 2px 20px 2px 5px;
+    min-width: 7em;
+    font-size: 14px;
+    font-family: "Segoe UI";
+}
+
+QComboBox:editable {
+    background: #F3F3F3; /* Light grey background for editable combo box */
+}
+
+QComboBox:!editable, QComboBox::drop-down:editable {
+    background: #4A4A4A; /* Dark grey color for non-editable combo box */
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #333333;
+    selection-background-color: #4A4A4A; /* Dark grey color for selection */
+    color: #FFFFFF; /* White text color */
+    background: #F3F3F3; /* Light grey background */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 18px;
+    border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/images/down_arrow.jpg);
+    width: 10px;
+    height: 10px;
+}

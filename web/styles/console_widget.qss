@@ -1,0 +1,60 @@
+/* ConsoleWidget styling (derived from QTextEdit) */
+ConsoleWidget {
+    background-color: #FFFFFF;  /* for example, a white background */
+    color: #2C3E50;  /* same font color as general QWidget styling */
+    border: 1px solid #BDC3C7;  /* same border as QTableWidget */
+    font-size: 12px;  /* same font size as general QWidget styling */
+    font-family: "Arial";  /* same font family as general QWidget styling */
+}
+
+/* Vertical ScrollBar styling */
+QScrollBar:vertical {
+    border: 1px solid #BDC3C7;
+    background: #FAFAFA;  /* Same as QWidget background color */
+    width: 15px;
+    margin: 15px 0 15px 0;  /* Top, right, bottom, left margins */
+}
+
+QScrollBar::handle:vertical {
+    background: #3498DB;  /* Same as QPushButton background color */
+    min-height: 20px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: 1px solid #BDC3C7;
+    background: #2C3E50;  /* Same as QMenuBar background color */
+    height: 15px;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/* Horizontal ScrollBar styling */
+QScrollBar:horizontal {
+    border: 1px solid #BDC3C7;
+    background: #FAFAFA;  /* Same as QWidget background color */
+    height: 15px;
+    margin: 0 15px 0 15px;  /* Top, right, bottom, left margins */
+}
+
+QScrollBar::handle:horizontal {
+    background: #3498DB;  /* Same as QPushButton background color */
+    min-width: 20px;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    border: 1px solid #BDC3C7;
+    background: #2C3E50;  /* Same as QMenuBar background color */
+    width: 15px;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+QDialog QPushButton {
+    padding: 5px;
+}
