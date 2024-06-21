@@ -1,0 +1,10 @@
+_datasets/**
+/_datasets/
+/.idea/
+/.ipynb_checkpoints/
+*.csv
+/_models/_checkpoints/
+_models/_checkpoints/**
+_models/__pycache__/
+va_submission.csv
+VA_submission.csv
